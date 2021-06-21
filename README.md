@@ -32,20 +32,20 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 1) Make a new local folder and clone the repository
 
-git clone https://github.com/src47/DeepLPnet.git
+* git clone https://github.com/src47/DeepLPnet.git
 
 2) Upgrade pip if needed
 
-pip install --upgrade pip
+* pip install --upgrade pip
 
 3) Make a virtual environment to install packages and activate 
 
-python3 -m venv env 
-source env/bin/activate
+* python3 -m venv env 
+* source env/bin/activate
 
 4) Install relevant packages
 
-pip install -r requirements.txt
+* pip install -r requirements.txt
 
 **Please direct any questions or comments to chitturi@stanford.edu or khstone@slac.stanford.edu!** 
 
