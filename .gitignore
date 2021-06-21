@@ -4,3 +4,8 @@ __pycache__/
 # Venv files
 env
 
+# Ipython 
+.ipynb_checkpoints
+
+# Mac
+*.DS_Store
