@@ -16,9 +16,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 * The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
 
-**Files:** 
-
-* *requirements.txt*: All dependencies can be installed using pip install -r requirements.txt 
+**SRC:** 
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. It also contains two other models which use inception blocks and skip connections which seem to work better. 
 
@@ -26,7 +24,12 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 * *data_generation.py*: code for the dataloader used for modifications (augmentation) during training.
 
-* *models_ICSD_CSD*: folder contains all trained models for the no-modification, baseline noise, broadening and multiphase experiments. These models were trained on ICSD and CSD as described in the paper. 
+**models_ICSD_CSD**: 
+
+* folder contains all trained models for the no-modification, baseline noise, broadening and multiphase experiments. These models were trained on ICSD and CSD as described in the paper. 
+
+**Installation:** 
+* *requirements.txt*: All dependencies can be installed using pip install -r requirements.txt 
 
 **Please direct any questions or comments to chitturi@stanford.edu or khstone@slac.stanford.edu!** 
 
