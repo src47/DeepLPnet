@@ -1,0 +1,12 @@
+scikit-optimize
+Matplotlib
+SciPy
+NumPy
+Pandas
+Scikit-Learn
+tensorflow
+keras
+tqdm
+jupyter
+jupyterlab
+scikit-ued
