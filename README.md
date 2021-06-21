@@ -8,15 +8,15 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
-**Tutorial Notebooks:** 
+**examples:** 
 
 * *ssrl_predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
 
-**Data:** 
+**data:** 
 
 * The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
 
-**SRC:** 
+**src:** 
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. It also contains two other models which use inception blocks and skip connections which seem to work better. 
 
