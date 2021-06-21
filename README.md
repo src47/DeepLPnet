@@ -8,7 +8,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
-**examples:** 
+**Tutorial:** 
 
 * *ssrl_predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
 
