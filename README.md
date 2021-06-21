@@ -29,7 +29,23 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 * folder contains all trained models for the no-modification, baseline noise, broadening and multiphase experiments. These models were trained on ICSD and CSD as described in the paper. 
 
 **Installation:** 
-* *requirements.txt*: All dependencies can be installed using pip install -r requirements.txt 
+
+% Make a new local folder and clone the repository
+
+git clone https://github.com/src47/DeepLPnet.git
+
+% Upgrade pip if needed
+
+pip install --upgrade pip
+
+% Make a virtual environment to install packages and activate 
+
+python3 -m venv env 
+source env/bin/activate
+
+% Install relevant packages
+
+pip install -r requirements.txt
 
 **Please direct any questions or comments to chitturi@stanford.edu or khstone@slac.stanford.edu!** 
 
