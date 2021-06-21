@@ -10,7 +10,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 **Tutorial:** 
 
-* *ssrl_predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
+* *predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
 
 **data:** 
 
