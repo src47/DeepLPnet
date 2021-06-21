@@ -26,7 +26,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 **models_ICSD_CSD**: 
 
-* folder contains all trained models for the no-modification, baseline noise, broadening and multiphase experiments. These models were trained on ICSD and CSD as described in the paper. 
+* folder contains all trained models for the no-modification, baseline noise, broadening, multiphase experiments and all-modifications. These models were trained on ICSD and CSD as described in the paper. 
 
 **Installation:** 
 
