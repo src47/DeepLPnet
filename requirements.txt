@@ -1,7 +1,13 @@
-scipy==1.7.0
-numpy==1.20.3
 pandas==1.2.4
+scipy==1.7.0
 tensorflow==2.5.0
 matplotlib==3.4.2
 Keras==2.4.3
+numpy==1.19.5
 scikit_learn==0.24.2
+tqdm==4.47.0
+scikit-ued==2.1.5
+jupyter==1.0.0
+jupyterlab==3.0.16
+ipython==7.24.1
+
