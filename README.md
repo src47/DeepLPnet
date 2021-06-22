@@ -47,5 +47,5 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 * pip3 install -r requirements.txt
 
-**Please direct any questions or comments to chitturi@stanford.edu or khstone@slac.stanford.edu!** 
+**Please direct any questions or comments to chitturi@stanford.edu and khstone@slac.stanford.edu.** 
 
