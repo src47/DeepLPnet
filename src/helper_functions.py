@@ -64,7 +64,7 @@ def augment(X, X_random, shift_offset=True, intensity_shift=True, linear_comb=Tr
 
 def shift_spectra(X, shift=10):
 
-    # Random shift between -shift and shift
+    # Random shift between -shift and shift; Based on code for shifting numpy arrays: https://stackoverflow.com/questions/30399534/shift-elements-in-a-numpy-array
     shift = np.random.randint(shift) - int(shift/2)
     augmented = np.empty_like(X)
     if shift > 0:
