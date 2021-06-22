@@ -1,11 +1,10 @@
 from matplotlib import pyplot as plt
+import numpy as np 
+import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from scipy.ndimage import gaussian_filter1d
 import tensorflow as tf
-import numpy as np 
-import pandas as pd
 import os 
-import numpy as np
 from scipy import signal 
 import scipy
 from skued import baseline_dt
