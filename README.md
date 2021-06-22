@@ -36,7 +36,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 2) Upgrade pip if needed
 
-* pip install --upgrade pip
+* pip3 install --upgrade pip
 
 3) Make a virtual environment to install packages and activate 
 
@@ -45,7 +45,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 4) Install relevant packages
 
-* pip install -r requirements.txt
+* pip3 install -r requirements.txt
 
 **Please direct any questions or comments to chitturi@stanford.edu or khstone@slac.stanford.edu!** 
 
