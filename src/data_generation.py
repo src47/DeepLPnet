@@ -64,6 +64,7 @@ class DataGenerator(tf.keras.utils.Sequence):
             X[i,] = np.reshape(x, (x.shape[0], 1))
             y[i,] = self.labels[ID]
         
+        # Flag to set whether train with augmentation
         if self.augmentation:
             X = augment(X, self.X_random, shift_offset=self.shift_offset, intensity_shift=self.intensity_shift, linear_comb=self.linear_comb, 
                 gaussian_noise=self.gaussian_noise,gaussian_broaden=self.gaussian_broaden, shift=self.shift, percent_scale=self.percent_scale,  
