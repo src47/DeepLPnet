@@ -1,11 +1,10 @@
 from matplotlib import pyplot as plt
+import numpy as np 
+import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from scipy.ndimage import gaussian_filter1d
 import tensorflow as tf
-import numpy as np 
-import pandas as pd
 import os 
-import numpy as np
 from scipy import signal 
 import scipy
 from skued import baseline_dt
@@ -16,33 +15,7 @@ def make_prediction(X, model, crystal_system):
     if ((crystal_system == "hexagonal") or (crystal_system == "cubic") or (crystal_system == "tetragonal") or (crystal_system == "trigonal")):
         enforce_symmetry(y_pred,crystal_system)
     return y_pred
-
-def print_rows(y_pred, y_test, n_rows):
-    
-    # Print n_rows for predicted and true lattice parameters 
-    for i in range(n_rows):
-        print(str(y_pred[i]), str(y_test[i]))
-        
-def plot_lp(y_pred, y_test):
-
-    # Helper function for scatter plot of predictions 
-    for i in range(y_pred.shape[1]):
-        plt.figure()
-        plt.xlim(0, np.max(y_test[:,i]))
-        plt.ylim(0, np.max(y_test[:,i]))
-        plt.xlabel('Predicted lattice parameter')
-        plt.ylabel('Real lattice parameter')
-        plt.scatter(y_pred[:, i], y_test[:, i], color='blue', marker='o', alpha=0.5)
-        straight_line = np.linspace(0, np.max(y_test[:,i]), 1000)
-        plt.plot(straight_line, straight_line + 0.1 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line - 0.1 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line + 0.25 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line - 0.25 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line + 0.5 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line - 0.5 * straight_line, 'green', linewidth=0.5, linestyle='dashed')
-        plt.plot(straight_line, straight_line, 'green', linewidth=1.5)
-        plt.show()
-        
+  
 def enforce_symmetry(prediction_array, crystal_system):
 
     # This function correctly enforces a a c for trigonal, tetragonal, hexagonal and cubic crystals;
@@ -60,26 +33,6 @@ def enforce_symmetry(prediction_array, crystal_system):
             prediction[0] = np.mean(prediction)
             prediction[1] = prediction[0]
             prediction[2] = prediction[0]
-        
-               
-def generate_IDs(labels, nTest, crystal_system):
-
-    # Randomly select data and split into train, test and validation 
-    IDs = np.arange(len(labels))
-    if crystal_system == "trigonal": # Remove rhombohedral structures
-        count = 0
-        avoid_list = []
-        for label in labels:
-            count += 1
-            if (label[0] == label[1]) and (label[0] == label[2]):
-                avoid_list.append(count-1)
-                #print(count)
-        IDs = np.delete(IDs, avoid_list)
-    np.random.shuffle(IDs)
-    list_IDs_train = IDs[0:(len(IDs)-2*nTest)]  # Train IDs
-    list_IDs_valid = IDs[(len(IDs)-2*nTest):(len(IDs)-nTest)] # Validation IDs -- same number as test
-    list_IDs_test = IDs[(len(IDs)-nTest):] # Test IDs
-    return list_IDs_train, list_IDs_valid, list_IDs_test
 
 def normalize01(X):
     # Normalize data to 0 1 range 
@@ -110,7 +63,7 @@ def augment(X, X_random, shift_offset=True, intensity_shift=True, linear_comb=Tr
 
 def shift_spectra(X, shift=10):
 
-    # Random shift between -shift and shift
+    # Random shift between -shift and shift; Based on code for shifting numpy arrays: https://stackoverflow.com/questions/30399534/shift-elements-in-a-numpy-array
     shift = np.random.randint(shift) - int(shift/2)
     augmented = np.empty_like(X)
     if shift > 0:
@@ -189,14 +142,14 @@ def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=
     q = angle2q(Xdata[0], lbda=measured_wavelength)
     intensity = Xdata[1]
     
-    if baseline: # If data has a non-zero baseline, we can use autobaselining tools such as skued baseline_dt
+    if baseline: # If data has a non-zero baseline, we can use autobaselining tools: https://scikit-ued.readthedocs.io/en/master/
         intensity = intensity - baseline_dt(intensity, wavelet = 'qshift3', level = 9, max_iter = 1000)
     
     intensity = intensity/np.max(intensity)
     intensity[intensity < 0.001] = 0
     
-    intensity_interpolated = interpolate_data(q, intensity, lbda=1.54056,ml_input_size=9000)
-    intensity_interpolated = intensity_interpolated/np.max(intensity_interpolated)
+    intensity_interpolated = interpolate_data(q, intensity, lbda=1.54056,ml_input_size=9000) # Interpolate to 9000 range in corresponding q 
+    intensity_interpolated = intensity_interpolated/np.max(intensity_interpolated) # normalize to 0,1
 
     if showPlots:
         plt.plot(np.linspace(0,90,9000),intensity_interpolated)
@@ -204,21 +157,23 @@ def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=
         
     return intensity_interpolated
 
-def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0.7293, model=None, baseline=False):
+def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0.7293, model=None, baseline=False,showPlots=True,printResults=True):
 
     if model == None:
-        model = tf.keras.models.load_model("models_ICSD_CSD/" + crystal_system +  "_all"
-)
-    intensity_interpolated = processExptData(Xdata, measured_wavelength=measured_wavelength, showPlots=True, baseline=baseline)
+        # Default model takes all augmentations 
+        model = tf.keras.models.load_model("models_ICSD_CSD/" + crystal_system +  "_all")
+        
+    intensity_interpolated = processExptData(Xdata, measured_wavelength=measured_wavelength, showPlots=showPlots, baseline=baseline)
     y_pred = make_prediction(np.expand_dims(np.expand_dims(intensity_interpolated,axis=1),axis=0), model, crystal_system)
     
-    print(" ")
-    print("True LPs from Refined data: ", y_true)
-    print(" ")
-    print("Predicted LPs using ML: ", y_pred)    
-    print("----------------------------------------------------------------------------------------------------------------")
-    print("----------------------------------------------------------------------------------------------------------------")
-    print(" ")
+    if printResults:
+        print(" ")
+        print("True LPs from Refined data: ", y_true)
+        print(" ")
+        print("Predicted LPs using ML: ", y_pred)    
+        print("----------------------------------------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------------------------------------")
+        print(" ")
     
     return y_pred
 

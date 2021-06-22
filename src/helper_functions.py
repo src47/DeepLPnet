@@ -157,22 +157,23 @@ def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=
         
     return intensity_interpolated
 
-def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0.7293, model=None, baseline=False):
+def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0.7293, model=None, baseline=False,showPlots=True,printResults=True):
 
     if model == None:
         # Default model takes all augmentations 
         model = tf.keras.models.load_model("models_ICSD_CSD/" + crystal_system +  "_all")
         
-    intensity_interpolated = processExptData(Xdata, measured_wavelength=measured_wavelength, showPlots=True, baseline=baseline)
+    intensity_interpolated = processExptData(Xdata, measured_wavelength=measured_wavelength, showPlots=showPlots, baseline=baseline)
     y_pred = make_prediction(np.expand_dims(np.expand_dims(intensity_interpolated,axis=1),axis=0), model, crystal_system)
     
-    print(" ")
-    print("True LPs from Refined data: ", y_true)
-    print(" ")
-    print("Predicted LPs using ML: ", y_pred)    
-    print("----------------------------------------------------------------------------------------------------------------")
-    print("----------------------------------------------------------------------------------------------------------------")
-    print(" ")
+    if printResults:
+        print(" ")
+        print("True LPs from Refined data: ", y_true)
+        print(" ")
+        print("Predicted LPs using ML: ", y_pred)    
+        print("----------------------------------------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------------------------------------")
+        print(" ")
     
     return y_pred
 
