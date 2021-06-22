@@ -143,7 +143,7 @@ def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=
     q = angle2q(Xdata[0], lbda=measured_wavelength)
     intensity = Xdata[1]
     
-    if baseline: # If data has a non-zero baseline, we can use autobaselining tools such as skued baseline_dt
+    if baseline: # If data has a non-zero baseline, we can use autobaselining tools: https://scikit-ued.readthedocs.io/en/master/
         intensity = intensity - baseline_dt(intensity, wavelet = 'qshift3', level = 9, max_iter = 1000)
     
     intensity = intensity/np.max(intensity)
