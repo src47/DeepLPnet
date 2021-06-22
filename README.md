@@ -11,6 +11,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Tutorial:** 
 
 * *predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
+* *topasScriptGeneration.ipynb*: is an example jupyter notebook to show how to create a corresponding topas file for LP search based on the ML predictions for SSRL data. 
 
 **data:** 
 
