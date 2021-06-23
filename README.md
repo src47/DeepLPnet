@@ -36,6 +36,8 @@ Tutorial notebooks for prediction on SSRL data:
 
 * folder contains all trained models for the no-modification, baseline noise, broadening, multiphase experiments and all-modifications. These models were trained on ICSD and CSD as described in the paper. 
 
+---
+
 **Installation** 
 
 1) Make a new local folder and clone the repository
