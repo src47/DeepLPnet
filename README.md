@@ -16,7 +16,7 @@ This directory contains the following files:
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. 
 * *helper_functions.py*: helper functions for ML predictions, training, augmentation and analysis
-* *helper_functions_topas.py*: helper functions for topas script generation. 
+* *helper_functions_topas.py*: helper functions for automatic Topas script generation for Lp-Search. 
 * *data_generation.py*: code for the dataloader used for modifications (augmentation) during training.
 
 **data** 
