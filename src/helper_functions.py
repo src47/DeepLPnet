@@ -12,7 +12,7 @@ from skued import baseline_dt
 def make_prediction(X, model, crystal_system):
     
     """
-    Function to enforce correct symmetry for lattice parameter predictions. For example, hexagonal has a, a, c
+    Function to get lattice parameters for the correct symmetry
     
     Parameters
     ----------
@@ -29,16 +29,28 @@ def make_prediction(X, model, crystal_system):
         Lattice parameters adjusted for the symmetry of their crystal class. 
     """
                    
-    # Use this function for final prediction to ensure correct symmetry for lattice parameters 
     y_pred = model.predict(X)
     if ((crystal_system == "hexagonal") or (crystal_system == "cubic") or (crystal_system == "tetragonal") or (crystal_system == "trigonal")):
         enforce_symmetry(y_pred,crystal_system)
     return y_pred
   
 def enforce_symmetry(prediction_array, crystal_system):
+    
+    """
+    Function to enforce correct symmetry for lattice parameter predictions. For example, hexagonal has a, a, c
+    
+    Parameters
+    ----------
+    prediction_array : ndarray
+        y_pred from the keras model 
+    crystal_system : str
+        String which indicates which crystal system
+        
+    Returns
+    ----------
+    No return is needed since arrays are passed in by reference in python; i.e. prediction_array is overwritten
+    """   
 
-    # This function correctly enforces a a c for trigonal, tetragonal, hexagonal and cubic crystals;
-    # No return is needed since arrays are passed in by reference in python; i.e. prediction_array is overwritten
     if ((crystal_system == "hexagonal") or (crystal_system == "tetragonal") or (crystal_system == "trigonal")):
         for prediction in prediction_array:
             if abs(prediction[0]-prediction[1]) < abs(prediction[0]-prediction[2]):
@@ -62,9 +74,12 @@ def normalize01(X):
     Xnew = np.array(Xnew)
     return Xnew
 
-# Augmentations 
 def augment(X, X_random, shift_offset=True, intensity_shift=True, linear_comb=True, gaussian_noise=True,gaussian_broaden=True, shift=15, percent_scale=0.30, num_examples=4, impurity_scale=0.10,noise_level=0.005, probability=1.0, sigma=1.0):
-
+    
+    """
+    Function to augment PXRD data with default values for noise, broadening etc. 
+    """
+        
     if len(X.shape) == 3:  # Need to reduce dimensions in order for other calculations to work
         X = np.reshape(X, (X.shape[0], X.shape[1]))
     if shift_offset:
@@ -81,8 +96,23 @@ def augment(X, X_random, shift_offset=True, intensity_shift=True, linear_comb=Tr
     return X
 
 def shift_spectra(X, shift=10):
+    
+    """
+    Function returns a shift augmented PXRD pattern. Here we use a random shift between -shift and shift; Based on code for shifting numpy arrays: https://stackoverflow.com/questions/30399534/shift-elements-in-a-numpy-array
 
-    # Random shift between -shift and shift; Based on code for shifting numpy arrays: https://stackoverflow.com/questions/30399534/shift-elements-in-a-numpy-array
+    Parameters
+    ----------
+    X : ndarray
+        PXRD pattern 
+    shift : int
+        2*Maximum amount of shift for the PXRD pattern 
+        
+    Returns
+    ----------
+    augmented : ndarray
+        shift augmented PXRD pattern 
+    """   
+        
     shift = np.random.randint(shift) - int(shift/2)
     augmented = np.empty_like(X)
     if shift > 0:
@@ -97,12 +127,48 @@ def shift_spectra(X, shift=10):
 
 def intensity_modulation(X, percent_scale=0.20):
     
-    # Random intensity modulation 
-    X += X*np.repeat(np.random.uniform(-percent_scale, percent_scale, size=(X.shape[0], 100)), X.shape[1]/100, axis=1)
-    return normalize01(X)
+    """
+    Function returns intensity modulated PXRD pattern.
+
+    Parameters
+    ----------
+    X : ndarray
+        PXRD pattern 
+    percent_scale : float
+        Fractional modulation in intensity 
+        
+    Returns
+    ----------
+    augmented : ndarray
+        intensity augmented PXRD pattern 
+    """   
+        
+    X += X*np.repeat(np.random.uniform(-percent_scale, percent_scale, size=(X.shape[0], 100)), X.shape[1]/100, axis=1) # same intensity modulation for each 100 pixel block
+    augmented = normalize01(X)
+    return augmented
 
 def linear_combination(X, X_random, num_examples=3, impurity_scale=0.10):
-    # Random number between 1 and num_examples for linear combination adding
+    
+    """
+    Function adds a scaled linear combination of other phases to the PXRD pattern. Number of impurities is a random number between 1 and num_examples. 
+
+    Parameters
+    ----------
+    X : ndarray
+        PXRD pattern 
+    X_random : ndarray
+        Array of other powder diffraction patterns. Impurity phases are sampled randomly. 
+    num_examples : int
+        Maximum number of impurities  
+    impurity_scale : float
+        Fractional of impurity relative to the largest PXRD peak 
+        
+    Returns
+    ----------
+    augmented : ndarray
+        intensity augmented PXRD pattern 
+    """   
+     
     if num_examples != 0:
         num_combinations = np.random.randint(num_examples) + 1
     else:
@@ -112,39 +178,89 @@ def linear_combination(X, X_random, num_examples=3, impurity_scale=0.10):
     for i in range(num_combinations):
         X += np.random.uniform(0.05, impurity_scale, size=(batch_size, 1)) * (np.random.permutation(X_random)[0:batch_size])
         X = normalize01(X)
-    return X
+    augmented = X
+    return augmented
 
 def gaussian_noise_baseline(X, noise_level=0.02, probability=1.0):
     
-    # Add gaussian noise to the baseline
+    """
+    Function adds baseline noise to the PXRD pattern. 
+
+    Parameters
+    ----------
+    X : ndarray
+        PXRD pattern 
+    noise_level : float
+        Amount of noise relative to the highest intensity PXRD peak
+    probability : float
+        Apply gaussian noise with specified probability 
+       
+    Returns
+    ----------
+    augmented : ndarray
+        absolute value of the gaussian noise added PXRD pattern 
+    """   
+
     if np.random.rand() < probability:
-        X += np.random.uniform(0,noise_level, size=(X.shape[0], 1))*np.random.normal(noise_level, 1, size=(X.shape[0],X.shape[1]))
-        #X += abs(np.random.normal(0, noise_level/3, size=(X.shape[0],X.shape[1]))) # for changing baseline noise experiments 
-    return abs(X)
+        # X += np.random.uniform(0,noise_level, size=(X.shape[0], 1))*np.random.normal(noise_level, 1, size=(X.shape[0],X.shape[1]))
+        X += abs(np.random.normal(0, noise_level/3, size=(X.shape[0],X.shape[1]))) # for changing baseline noise experiments 
+    
+    augmented = abs(X)
+    return augmented
 
 def gaussian_broaden_data(X):
     
-    # Add gaussian broaden to the data 
+    """
+    Function gaussian broadens PXRD peaks
+
+    Parameters
+    ----------
+    X : ndarray
+        PXRD pattern 
+        
+    Returns
+    ----------
+    augmented : ndarray
+        broadened PXRD pattern 
+    """   
+
     sigma = np.random.uniform(1, 5)
-    return normalize01(gaussian_filter1d(X, sigma, axis=1))
+    augmented = normalize01(gaussian_filter1d(X, sigma, axis=1))
+    return augmented
 
 def mean_absolute_percentage_error(y_true, y_pred):
     
-    # Calculate MPE 
+    # Calculate MAPE 
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     return np.mean(np.abs((y_true - y_pred) / (y_true + 0.0000001))) * 100
 
-def find_peaks_wrapper(x,widths=np.arange(1,20)):
-    peakind = signal.find_peaks_cwt(x, widths)        
-    out = np.zeros(len(x))
-    out[peakind] = x[peakind]
-    out = out/np.max(out)
-    return out
-
 def angle2q(two_theta, lbda=1.541838):
+    
+    # Convert two_theta to q 
     return (4*np.pi*np.sin((two_theta/2)*np.pi/180))/lbda
 
 def interpolate_data(q, intensities, lbda=1.541838,ml_input_size=9000):
+    
+    """
+    Function interpolates PXRD experimental pattern to fit the correct q range and be 9000 long 
+
+    Parameters
+    ----------
+    q : ndarray
+        q range for PXRD pattern
+    intensities : ndarray
+        corresponding intensity for each q 
+    lbda : float
+        Wavelength of experimental pattern 
+    ml_input_size : int
+        Desired output PXRD pattern length 
+        
+    Returns
+    ----------
+    intensities_interpolated : ndarray
+        interpolated PXRD pattern 
+    """   
+        
     f = scipy.interpolate.interp1d(q, intensities, bounds_error=False, fill_value=intensities[0])
     q_sim = angle2q(np.linspace(0, 90, ml_input_size), lbda)
     intensities_interpolated = f(q_sim)
@@ -158,6 +274,8 @@ def add_axis_broaden(intensity_interpolated,sigma=3):
     return x 
 
 def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=False):
+    
+    # Helper function to process experimental data at a given wavelength 
     q = angle2q(Xdata[0], lbda=measured_wavelength)
     intensity = Xdata[1]
     
@@ -177,7 +295,8 @@ def processExptData(Xdata, measured_wavelength=0.7293, showPlots=True, baseline=
     return intensity_interpolated
 
 def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0.7293, model=None, baseline=False,showPlots=True,printResults=True):
-
+    
+    # Helper function to predicte on experimental data at a given wavelength and with a specified model  
     if model == None:
         # Default model takes all augmentations 
         model = tf.keras.models.load_model("../models_ICSD_CSD/" + crystal_system +  "_all")
