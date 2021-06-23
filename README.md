@@ -8,7 +8,9 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
-**src:** 
+This directory contains the following files: 
+
+**src** 
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. It also contains two other models which use inception blocks and skip connections which seem to work better. 
 
@@ -17,11 +19,11 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 
 * *data_generation.py*: code for the dataloader used for modifications (augmentation) during training.
 
-**data:** 
+**data** 
 
 * The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
 
-**examples:** 
+**examples** 
 
 Tutorial notebooks for prediction on SSRL data: 
 
@@ -32,7 +34,7 @@ Tutorial notebooks for prediction on SSRL data:
 
 * folder contains all trained models for the no-modification, baseline noise, broadening, multiphase experiments and all-modifications. These models were trained on ICSD and CSD as described in the paper. 
 
-**Installation:** 
+**Installation** 
 
 1) Make a new local folder and clone the repository
 
