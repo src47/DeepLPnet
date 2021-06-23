@@ -8,17 +8,6 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
-**examples:** 
-
-Tutorial notebooks for prediction on SSRL data: 
-
-* *predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
-* *topasScriptGeneration.ipynb*: is an example jupyter notebook to show how to create a corresponding topas file for Lp-Search (https://journals.iucr.org/j/issues/2017/05/00/to5164/) based on the ML predictions for SSRL data. 
-
-**data:** 
-
-* The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
-
 **src:** 
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. It also contains two other models which use inception blocks and skip connections which seem to work better. 
@@ -27,6 +16,17 @@ Tutorial notebooks for prediction on SSRL data:
 * *helper_functions_topas.py*: helper functions for topas script generation. 
 
 * *data_generation.py*: code for the dataloader used for modifications (augmentation) during training.
+
+**data:** 
+
+* The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
+
+**examples:** 
+
+Tutorial notebooks for prediction on SSRL data: 
+
+* *predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
+* *topasScriptGeneration.ipynb*: is an example jupyter notebook to show how to create a corresponding topas file for Lp-Search (https://journals.iucr.org/j/issues/2017/05/00/to5164/) based on the ML predictions for SSRL data. 
 
 **models_ICSD_CSD**: 
 
