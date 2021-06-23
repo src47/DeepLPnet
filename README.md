@@ -8,6 +8,8 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
+---
+
 This directory contains the following files: 
 
 **src** 
