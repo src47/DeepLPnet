@@ -10,6 +10,25 @@ import scipy
 from skued import baseline_dt
 
 def make_prediction(X, model, crystal_system):
+    
+    """
+    Function to enforce correct symmetry for lattice parameter predictions. For example, hexagonal has a, a, c
+    
+    Parameters
+    ----------
+    X : ndarray
+        PXRD array
+    model : keras_model
+        Keras model to predict lattice parameters
+    crystal_system : str
+        String which indicates which crystal system
+        
+    Returns
+    ----------
+    y_pred : ndarray
+        Lattice parameters adjusted for the symmetry of their crystal class. 
+    """
+                   
     # Use this function for final prediction to ensure correct symmetry for lattice parameters 
     y_pred = model.predict(X)
     if ((crystal_system == "hexagonal") or (crystal_system == "cubic") or (crystal_system == "tetragonal") or (crystal_system == "trigonal")):
