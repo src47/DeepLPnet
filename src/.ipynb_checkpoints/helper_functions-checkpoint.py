@@ -161,7 +161,7 @@ def predictExptDataPipeline(Xdata, y_true, crystal_system, measured_wavelength=0
 
     if model == None:
         # Default model takes all augmentations 
-        model = tf.keras.models.load_model("models_ICSD_CSD/" + crystal_system +  "_all")
+        model = tf.keras.models.load_model("../models_ICSD_CSD/" + crystal_system +  "_all")
         
     intensity_interpolated = processExptData(Xdata, measured_wavelength=measured_wavelength, showPlots=showPlots, baseline=baseline)
     y_pred = make_prediction(np.expand_dims(np.expand_dims(intensity_interpolated,axis=1),axis=0), model, crystal_system)
