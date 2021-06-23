@@ -32,7 +32,7 @@ Tutorial notebooks for prediction on SSRL data:
 * *predictions.ipynb*: is an example jupyter notebook to show how to deploy the ML models on data collected from Beamline 2-1 at SSRL. 
 * *topasScriptGeneration.ipynb*: is an example jupyter notebook to show how to create a corresponding topas file for Lp-Search (https://journals.iucr.org/j/issues/2017/05/00/to5164/) based on the ML predictions for SSRL data. 
 
-**models_ICSD_CSD**: 
+**models_ICSD_CSD** 
 
 * folder contains all trained models for the no-modification, baseline noise, broadening, multiphase experiments and all-modifications. These models were trained on ICSD and CSD as described in the paper. 
 
