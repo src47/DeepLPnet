@@ -202,7 +202,7 @@ def gaussian_noise_baseline(X, noise_level=0.02, probability=1.0):
     """   
 
     if np.random.rand() < probability:
-        # X += np.random.uniform(0,noise_level, size=(X.shape[0], 1))*np.random.normal(noise_level, 1, size=(X.shape[0],X.shape[1]))
+        # X += np.random.uniform(0,noise_level, size=(X.shape[0], 1))*np.random.normal(0, 1, size=(X.shape[0],X.shape[1]))
         X += abs(np.random.normal(0, noise_level/3, size=(X.shape[0],X.shape[1]))) # for changing baseline noise experiments 
     
     augmented = abs(X)
