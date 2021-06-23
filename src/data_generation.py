@@ -2,10 +2,63 @@ import tensorflow as tf
 from helper_functions import * 
 
 class DataGenerator(tf.keras.utils.Sequence):
-    'Generates data for Keras'
+    
+    """
+    A class to load in data via a DataGenerator and perform PXRD augmentations
+    """
+        
     def __init__(self, data_directory, list_IDs, labels, X_random=np.zeros((100,9000)), batch_size=64, dimx=(9000), dimy=(3), 
                  shuffle=True,augmentation=False, shift_offset=False, intensity_shift=False, linear_comb=False, gaussian_noise=False, gaussian_broaden=False,
                 shift=15, percent_scale=0.30, num_examples=3, impurity_scale=0.10,noise_level=0.002, probability=1.0, sigma=1.0):
+        
+        """
+        Constructs all the necessary attributes for the data generator object
+
+        Parameters
+        ----------
+            data_directory : PATH
+                path to the PXRD patterns 
+            list_IDs : list(int)
+                list of indices to select a subset of the data (e.g. for training, validation, testing) 
+            labels : ndarray
+                array with all labels for the selected patterns via indices 
+            X_random : ndarray
+                Array which contains other phases used for linear combination experiments; defaults to a zero-array
+            batch_size : int
+            dimx : int
+                size of PXRD pattern
+            dimy : ndarray
+                length of predicted array (a, b, c)
+            shuffle : boolean
+                shuffle training data 
+            augmentation : boolean
+                perform augmentation of PXRD patterns 
+            shift_offset : boolean
+                perform shift augmentation
+            intensity_shift : boolean
+                perform intensity augmentation
+            linear_comb : boolean
+                perform multiphase augmentation
+            gaussian_noise : boolean
+                perform noise augmentation
+            gaussian_broaden : boolean
+                perform broaden augmentation
+            shift : float
+                Amount of horizontal displacement 
+            percent_scale : float
+                Intensity scale factor 
+            num_examples : int   
+                Number of linear combination 
+            impurity_scale : float
+                Scale factor for impurities
+            noise_level : float       
+                Baseline noise threshold 
+            probability : float     
+                Probability that pattern has baseline noise 
+            sigma : float                    
+                Broadening factor    
+        """
+            
         'Initialization'
         self.augmentation = augmentation      # boolean whether to perform augmentation 
         self.data_directory = data_directory  # path to data directory 
