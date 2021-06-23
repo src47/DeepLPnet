@@ -23,7 +23,8 @@ Tutorial notebooks for prediction on SSRL data:
 
 * *model.py*: contains the regression model (LPregressor) in the analysis. It also contains two other models which use inception blocks and skip connections which seem to work better. 
 
-* *helper_functions.py*: various helper functions used in the analysis. 
+* *helper_functions.py*: helper functions for ML predictions, training, augmentation and analysis
+* *helper_functions_topas.py*: helper functions for topas script generation. 
 
 * *data_generation.py*: code for the dataloader used for modifications (augmentation) during training.
 
