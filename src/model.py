@@ -40,9 +40,8 @@ class LPregressor(tf.keras.Model):
 
     def call(self, inputs):
         
-        #x = self.initial_pool(inputs)
+        x = self.initial_pool(inputs)
         x = self.block_a(inputs)
-        #x = self.block_a(x)
         x = self.block_b(x)
         x = self.block_c(x)
         x = self.block_d(x)
