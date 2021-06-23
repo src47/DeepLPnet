@@ -1,4 +1,4 @@
-# LPnet: Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns
+# DeepLPnet: Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 This repository contains the trained models from the paper "Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns". Please contact ICSD and CSD for access to their databases which were utilized in our analysis. 
