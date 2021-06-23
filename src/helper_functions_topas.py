@@ -9,6 +9,35 @@ def V2(a,b,c):
 
 def LPrange(prediction, crystal_system, bound=0.2):
     
+    """
+    Function to get the bounds on the lattice parameters and volume for use in Lp-Search automated scripts. 
+    
+    Parameters
+    ----------
+    prediction : ndarray
+        PXRD lattice parameter prediction from ML 
+    crystal_system : str
+        String which indicates which crystal system
+    bound : float 
+        Fraction bound 
+        
+    Returns
+    ----------
+    predicted_a : float 
+    lower_bound_a : float
+    upper_bound_a : float
+    predicted_b : float
+    lower_bound_b : float
+    upper_bound_b : float
+    predicted_c : float
+    lower_bound_c : float
+    upper_bound_c : float
+    predicted_V : float
+    lower_bound_V : float
+    upper_bound_V : float
+    
+    """
+        
     predicted_a = prediction[0]
     predicted_b = prediction[1]
     predicted_c = prediction[2]
@@ -412,6 +441,8 @@ def write_template_triclinic(dataName, wavelength, V, minV, maxV, a, mina, maxa,
     return lines 
 
 def make_template(prediction, name,wavelength,crystal_system,bound=0.2):
+    
+    # Helper function to generate topas script for a given PXRD pattern 
     
     predicted_a, lower_bound_a, upper_bound_a, predicted_b, lower_bound_b, upper_bound_b, predicted_c, lower_bound_c, upper_bound_c, predicted_V, lower_bound_V, upper_bound_V = LPrange(prediction=prediction, crystal_system=crystal_system, bound=bound)
     
