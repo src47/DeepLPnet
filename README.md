@@ -21,7 +21,7 @@ This directory contains the following files:
 
 **data** 
 
-* The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory 
+* The SSRL Beamline 2-1 dataset is available in the XY_data_labels directory.
 
 **examples** 
 
