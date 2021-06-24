@@ -1,7 +1,7 @@
 # DeepLPnet: Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-This repository contains the trained models from the paper "Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns". The models here can be used to predict on unknown PXRD patterns for which the crystal system is known. For model training, please contact ICSD and CSD for access to their databases which were utilized in our analysis. 
+This repository contains the trained models from the paper "Deep Learning Estimation of Crystal Lattice Parameters from X-Ray Powder Diffraction Patterns". The models here can be used to predict on unknown synchrotron PXRD patterns for which the crystal system is known. For model training, please contact ICSD and CSD for access to their databases which were utilized in our analysis. 
 
 Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (MPE) for each crystal system. Analysis of realistic modifications which cause ML methods to underperform (baseline noise, broadening, intensity modulation, impurity phases, zero-shifting). Quantification of search space reduction around true lattice parameters (~ 100 - 1000 fold reduction). Strong prediction for experimental synchrotron data from Beamline 2-1 at SSRL. 
 
