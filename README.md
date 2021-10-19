@@ -6,7 +6,6 @@ This repository contains the trained models from the paper "Autonomous Predictio
 Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (MPE) for each crystal system. Analysis of realistic modifications which cause ML methods to underperform (baseline noise, broadening, intensity modulation, impurity phases, zero-shifting). Quantification of search space reduction around true lattice parameters (~ 100 - 1000 fold reduction). Strong prediction for experimental synchrotron data from Beamline 2-1 at SSRL. 
 
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
-**Journal: Journal of Applied Crystallography (accepted).**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
 ---
