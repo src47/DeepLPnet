@@ -1,4 +1,4 @@
-# DeepLPnet: Autonomous Prediction of Lattice Parameters from X-ray Powder Diffraction Patterns.
+# DeepLPnet: Automated Prediction of Lattice Parameters from X-ray Powder Diffraction Patterns.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 This repository contains the trained models from the paper "Autonomous Prediction of Lattice Parameters from X-ray Powder Diffraction Patterns". The models here can be used to predict on unknown synchrotron PXRD patterns for which the crystal system is known. For model training, please contact ICSD and CSD for access to their databases which were utilized in our analysis. 
@@ -8,6 +8,7 @@ Key Results: Prediction of lattice parameters with ~ 10% mean percentage error (
 **Authors: Sathya Chitturi, Daniel Ratner, Richard Walroth, Vivek Thampy, Evan Reed, Mike Dunne, Chris Tassone and Kevin Stone.**
 **Affiliations: Stanford University / SLAC National Accelerator Laboratory**
 
+Paper Link: https://doi.org/10.1107/S1600576721010840
 ---
 
 This directory contains the following files: 
