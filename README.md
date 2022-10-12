@@ -71,7 +71,7 @@ git clone https://github.com/src47/DeepLPnet.git
 ```
 
 2) Please pull the appropriate Docker container from Docker Hub.
-3) 
+
 ```
 docker pull slaclab/slac-ml:20211101.0
 ```
