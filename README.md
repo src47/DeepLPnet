@@ -39,30 +39,39 @@ This directory contains the following files:
 
 1) Make a new local folder and clone the repository
 
-* git clone https://github.com/src47/DeepLPnet.git
+```
+git clone https://github.com/src47/DeepLPnet.git
+```
 
 2) Upgrade pip if needed
 
-* pip3 install --upgrade pip
+```
+pip3 install --upgrade pip
+```
 
 3) Make a virtual environment to install packages and activate. Here we use venv but other environments such as conda will also work. 
 
-* python3 -m venv env 
-* source env/bin/activate
+```
+python3 -m venv env 
+source env/bin/activate
+```
 
 4) Install relevant packages
 
-* pip3 install -r requirements.txt
+```
+pip3 install -r requirements.txt
+```
 
-**Installation via docker** 
-
-Please pull the appropriate Docker container from Docker Hub.
+**Installation via docker (2022 recommended)** 
 
 1) Make a new local folder and clone the repository
 
-* git clone https://github.com/src47/DeepLPnet.git
+```
+git clone https://github.com/src47/DeepLPnet.git
+```
 
-2) 
+2) Please pull the appropriate Docker container from Docker Hub.
+3) 
 ```
 docker pull slaclab/slac-ml:20211101.0
 ```
