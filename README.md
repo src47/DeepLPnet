@@ -35,7 +35,7 @@ This directory contains the following files:
 
 ---
 
-**Installation** 
+**Installation via pip** 
 
 1) Make a new local folder and clone the repository
 
@@ -53,6 +53,19 @@ This directory contains the following files:
 4) Install relevant packages
 
 * pip3 install -r requirements.txt
+
+**Installation via docker** 
+
+Please pull the appropriate Docker container from Docker Hub.
+
+1) Make a new local folder and clone the repository
+
+* git clone https://github.com/src47/DeepLPnet.git
+
+2) 
+```
+docker pull slaclab/slac-ml:20211101.0
+```
 
 Note: the skued package used for baselining is slightly unstable and sometimes does not install correctly. If this is case, one option is to comment the import statement in helper_functions.py and remove scikit-ued from requirements.txt. In this scenario, the rest of the code base works, however the baselining option will not be available. 
 
